@@ -1,0 +1,34 @@
+class Solution {
+    public int findLength(int[] A, int[] B) {
+        
+        Map<Integer,ArrayList<Integer>> Bmap = new HashMap<Integer,ArrayList<Integer>>();
+        
+        int max =0;
+        for(int i=0; i<B.length;i++){
+            Bmap.computeIfAbsent(B[i],x -> new ArrayList<Integer>()).add(i);
+        }
+        
+        //Bmap.forEach((val,indices)-> System.out.println(val+"-->"+indices));
+        
+        for(int i=0; i<A.length;i++){
+            if(Bmap.containsKey(A[i])){
+                
+                for(int j:Bmap.get(A[i]))
+                {
+                    int count = 0;
+                    int k = 0;
+                    while(i+k<A.length && j+k<B.length && A[i+k]==B[j+k])
+                    {
+                        count++;
+                        k++;
+                    }
+                    
+                    max = Math.max(count,max);
+                }
+            }
+        }
+        
+        return max;
+        
+    }
+}

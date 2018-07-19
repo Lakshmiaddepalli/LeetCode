@@ -1,0 +1,52 @@
+class Solution {
+    public int search(int[] nums, int target) {
+
+        
+        int i = 0;
+        int pos_1 = -1;
+        if(nums.length > 1){
+        while(i+1 < nums.length && nums[i] < nums[i+1]){
+            i++;
+        }
+        }
+        
+        if(i == nums.length){
+         pos_1 = binarysearch(nums,target);   
+        }
+        else{
+        pos_1 = binarysearch(Arrays.copyOfRange(nums, 0, i+1),target);
+        if(pos_1==-1){
+        pos_1 = binarysearch(Arrays.copyOfRange(nums, i+1, nums.length),target);
+        if(pos_1!=-1)
+            pos_1 += i+1;
+        }
+        }
+        
+        
+        return pos_1;
+    }
+    
+    
+    public int binarysearch(int[] arr,int target)
+    {
+        int first = 0;
+        int last = arr.length-1;
+        
+        while(first<=last)
+        {
+            int mid = (first+last)/2;
+            
+            if(arr[mid] < target)
+                first = mid +1;
+            else if(arr[mid] > target)
+                last = mid -1;
+            else
+                return mid;
+            
+        }
+        
+        return -1;
+        
+        
+    }
+}
