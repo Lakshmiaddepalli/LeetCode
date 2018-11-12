@@ -1,0 +1,100 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+
+class storevalues{
+	int x;
+	int y;
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int y) {
+		this.y = y;
+	}
+	public storevalues(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
+	}
+
+
+
+}
+public class LongestCommonSubsequence {
+	//static StringBuilder sb = new StringBuilder();
+	static ArrayList<String> sb = new ArrayList<String>();
+	static int[][] x ;
+	static storevalues[][] decision;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+
+		String a = "abcdefgh";
+		String b = "acekl";
+		int i = a.length();
+		int j = b.length();
+		x=new int[i][j];
+		decision=new storevalues[i][j];
+		for(int k = 0;k < i;k++) {
+			for(int l = 0;l < j;l++) {
+				x[k][l] = -1;
+			}
+		}
+		int v = lengthlongestcommonsubsequence(i-1,j-1,a.toCharArray(),b.toCharArray());
+		System.out.println(v);
+		PrintPath(i-1,j-1,a.toCharArray(),b.toCharArray());
+
+	}
+
+
+	public static void PrintPath(int i, int j,char[] a,char[] b) {
+		// TODO Auto-generated method stub
+		if(i >=0 && j >= 0) {
+		 storevalues vals	= decision[i][j];
+		 PrintPath(vals.getX(),vals.getY(),a,b);
+		 if(vals.getX()==i-1 && vals.getY()==j-1) {
+			 System.out.println(a[i]);
+		 }
+		}
+		
+	}
+
+
+	public static int lengthlongestcommonsubsequence(int i, int j, char[] a,char []b) {
+		// TODO Auto-generated method stub
+		int temp = -1;
+		storevalues v = null;
+		
+		if(i<0 || j < 0) {
+			return 0;
+		}
+		temp = x[i][j];
+		if(x[i][j] != -1) 
+			return temp;
+
+		if(a[i]==b[j]) {
+			v = new storevalues(i-1,j-1);
+			temp =  1 + lengthlongestcommonsubsequence(i-1,j-1,a,b);
+		}
+		else if(lengthlongestcommonsubsequence(i-1,j,a,b) > lengthlongestcommonsubsequence(i,j-1,a,b)){
+			v = new storevalues(i-1,j);
+			temp = lengthlongestcommonsubsequence(i-1,j,a,b);
+		}else {
+			v = new storevalues(i,j-1);
+			temp = lengthlongestcommonsubsequence(i,j-1,a,b);
+		}
+
+		x[i][j] = temp;
+		decision[i][j] = v;
+
+		return temp;
+
+	}
+
+}

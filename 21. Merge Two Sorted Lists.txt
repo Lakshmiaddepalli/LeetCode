@@ -1,0 +1,32 @@
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        
+        ListNode p = l1;
+        ListNode q = l2;
+        ListNode result = new ListNode(0);
+        ListNode r = result;
+        
+        while(p!=null && q!=null){
+        if(p.val <= q.val){
+            r.next = p;
+            p = p.next;
+            r = r.next;
+        }
+    	if(p!=null && q.val <= p.val){
+            r.next = q;
+             q = q.next;
+            r = r.next;
+        }
+        }
+        if((q==null && p!=null)) {
+            r.next = p;
+         }
+        else if((p==null && q!=null)) {
+             r.next = q;
+          }
+        else {
+        	r.next = null;
+        }
+        return result.next;
+    }
+}

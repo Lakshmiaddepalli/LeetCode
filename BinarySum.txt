@@ -1,0 +1,33 @@
+class Solution {
+    public String addBinary(String a, String b) {
+        
+        int m = a.length()-1;
+        int n = b.length()-1;
+    
+        int aval;
+        int bval;
+        int carry = 0;
+        int finalval = Integer.MIN_VALUE;
+        String result = "";
+        
+        while(m>=0||n>=0){
+         aval = 0;   
+         bval = 0;
+         if(m>=0) aval = a.charAt(m) - '0';
+         if(n>=0) bval = b.charAt(n) - '0';
+         finalval = aval + bval+carry;
+         carry = (finalval/2);
+         result = (finalval%2)+ "" + result;
+            m--;
+            n--;
+        }
+        
+        if(carry!=0){
+            result = carry + "" + result;
+        }
+        
+        
+        return result;
+        
+    }
+}
