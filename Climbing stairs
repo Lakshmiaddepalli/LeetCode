@@ -1,0 +1,19 @@
+class Solution {
+ //   int count = 0;
+    public int climbStairs(int n) {
+         if(n==1){
+            return 1;
+        }
+
+        int dpval[] = new int[n+1];
+         dpval[1] = 1;
+         dpval[2] = 2;
+        
+         for(int i = 3;i <=n;i++){
+           dpval[i] = dpval[i-1] + dpval[i-2];
+         }
+
+        
+       return dpval[n]; 
+    }
+}
