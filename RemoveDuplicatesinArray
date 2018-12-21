@@ -1,0 +1,20 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        
+  int i = 0;
+        int count = 0;
+int index = -1;
+        while((i+1) < nums.length){
+        while(nums[i] == nums[i+1]){
+            i++;
+        }
+        nums[i]=nums[i+1];
+            count++;
+            i++;
+        }
+        for (int j = 0; j < nums.length; j++) {
+    System.out.print(nums[j]);
+}
+        return count;
+    }
+}
