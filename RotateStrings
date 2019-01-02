@@ -1,0 +1,21 @@
+class Solution {
+    public boolean rotateString(String A, String B) {
+     
+        ArrayList<String> al = new ArrayList<String>(Arrays.asList(A.split("")));
+        boolean isthere = false;
+        int count = al.size();
+        
+        while(count > 0 && !(String.join("", al).equals(B))){
+            String temp = al.remove(0);
+            al.add(temp);
+            count--;
+        }
+        
+        if(String.join("", al).equals(B)){
+            isthere = true;
+        }
+        
+        
+        return isthere;
+    }
+}
