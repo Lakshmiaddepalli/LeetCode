@@ -1,0 +1,116 @@
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        
+        if(nums1.length==0 && nums2.length==0){
+            return 0;
+        }
+        
+        TreeNode Mediantree = null;
+        TreeNode val = null;
+        
+        if(nums1.length!=0){
+            Mediantree = CreateTree(nums1,0,nums1.length-1);
+            val = Mediantree;
+            for(int i = 0; i <nums2.length;i++){
+            val = insertval(Mediantree,nums2[i]);
+            }
+        }else{
+           val = CreateTree(nums2,0,nums2.length-1); 
+        }
+
+
+        ArrayList<Integer> al = new ArrayList<Integer>();
+        inorder(val,al);
+        Object[] objects = al.toArray(); 
+        Integer[] nums = new Integer[al.size()]; 
+  
+
+        for (int i =0; i < al.size(); i++) {
+            nums[i] = al.get(i); 
+        }
+        
+     //  for(int j = 0; j< nums.length;j++){
+     //       System.out.print(nums[j]);
+     //   }
+     //   System.out.println();
+        
+        double ans = 0.0;
+        if(((nums1.length+nums2.length)%2)!=0){
+           ans = (double)nums[((nums1.length+nums2.length)/2)];
+       }
+       else
+       {
+ ans =  (double)(((nums[(nums1.length+nums2.length)/2] + nums[((nums1.length+nums2.length)/2)-1])/2.0)); }
+return ans;
+    }
+    
+    public TreeNode CreateTree(int[] nums1, int low,int high){
+        
+        if(low > high){
+            return null;
+        }
+        
+        int mid = low + ((high-low)/2);
+      //  System.out.println(nums1[mid]);
+        TreeNode root = new TreeNode(nums1[mid]);
+        root.left = CreateTree(nums1,low,mid-1);
+        root.right = CreateTree(nums1,mid+1,high);
+        
+        return root;
+    }
+    
+    public TreeNode insertval(TreeNode root, int key){
+        
+        if(root == null){
+            root = new TreeNode(key);
+            return root;
+        }
+        
+        if(key < root.value){
+          root.left   = insertval(root.left,key);
+        }
+        else {
+           root.right = insertval(root.right,key);
+        }
+        return root;
+    }
+    
+    public void inorder(TreeNode root,ArrayList<Integer> al){
+        if(root == null){  
+         return;
+        }
+        inorder(root.left,al);
+        al.add(root.value);
+        inorder(root.right,al);
+
+        
+    }
+    
+    public void printInorder(TreeNode node) 
+    { 
+        if (node == null) 
+            return; 
+  
+        /* first recur on left child */
+        printInorder(node.left); 
+  
+        /* then print the data of node */
+        System.out.print(node.value + " "); 
+  
+        /* now recur on right child */
+        printInorder(node.right); 
+    } 
+    
+}
+
+class TreeNode{
+    int value;
+    TreeNode left;
+    TreeNode right;
+    
+    public TreeNode(int x){
+        value = x;
+        left = null;
+        right = null;
+    }
+}
