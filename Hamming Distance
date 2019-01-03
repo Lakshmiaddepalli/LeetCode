@@ -1,0 +1,53 @@
+class Solution {
+    public int hammingDistance(int x, int y) {
+        if(x==y)
+            return 0;
+        
+        
+        
+        String xbin = converttoBinary(x);
+        String ybin = converttoBinary(y);
+        
+        
+        if(xbin.length() > ybin.length()){
+            ybin =  appendstring("0", (xbin.length() - ybin.length()),ybin);
+        }
+        else{
+            xbin =  appendstring("0", (ybin.length() - xbin.length()),xbin);
+        }
+        
+        
+        int i = 0;
+        int count = 0;
+        while(i<xbin.length()){
+            if(!((xbin.charAt(i))==(ybin.charAt(i)))){
+                count++;
+            }
+            i++;
+        }
+        
+        return count;
+        
+        
+    }
+    
+    public String converttoBinary(int num){
+        String val = "";
+        
+        while(num>0){
+        int rem = num%2;
+        val = rem + val;
+        num = num/2;
+        }
+        return val;
+    }
+    
+    public String appendstring(String charval,int numrepeat,String temp){
+        String aux = "";
+        while(numrepeat > 0){
+        aux = aux + charval;
+            numrepeat--;
+        }
+        return aux + temp;
+    }
+}
