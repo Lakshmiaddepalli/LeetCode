@@ -1,0 +1,45 @@
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        
+        Arrays.sort(nums);
+        
+        if(nums.length < 3){
+            return 0;
+        }
+        
+        int minval = Integer.MAX_VALUE;
+        int maxval = Integer.MIN_VALUE;
+        int finalsum = 0;
+        
+        for(int i = 0 ; i < nums.length - 2; i++){
+            if( i  > 0 && nums[i] == nums[i-1]){continue;}
+            
+            for(int j = i+1, k = nums.length-1;j<k;){
+                
+                int val = nums[i] + nums[j] + nums[k];
+                
+                 if( val == target){
+                    finalsum = val;
+                     return finalsum;
+                 }
+                else if(val < target){
+                    if(target - val < minval){
+                    minval =  target - val;
+                    finalsum = val;
+                    }
+                    j++;
+                    while(j < k && nums[j] == nums[j-1])j++;
+                }
+                else{
+                     if(val - target < minval){
+                    minval =  val - target;
+                    finalsum = val;
+                    }
+                    k--;
+                    while(j < k && nums[k] == nums[k+1])k--;
+                }
+            }
+    }
+        return finalsum;
+}
+}
