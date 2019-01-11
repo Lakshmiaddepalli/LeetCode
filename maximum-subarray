@@ -1,0 +1,25 @@
+class Solution {
+    public int maxSubArray(int[] nums) {
+        
+        int sumarray[] = new int[nums.length];
+        sumarray[0] = nums[0];
+        int maxval = sumarray[0];
+        
+        for(int i = 1 ;i < sumarray.length; i++){
+           
+            if(sumarray[i-1]>0){
+            sumarray[i] = sumarray[i-1] + nums[i];
+            }
+            
+            else{
+             sumarray[i] = nums[i]; 
+            }
+            
+            maxval = Math.max(maxval,sumarray[i] );
+        }
+        
+
+        return maxval;
+        
+    }
+}
