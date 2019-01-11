@@ -1,0 +1,51 @@
+class Solution {
+    public int largestPalindrome(int n) {
+        
+        String intval = "";
+        
+        for(int i = 0; i< n; i++){
+            intval = intval + "9";
+        }
+        
+        if(n == 1){
+            return 9;
+        }
+        int max = Integer.parseInt(intval);
+        
+        
+        for(int i = max; i>(max/10);i--){
+            long x = createpalindrome(i);
+                if(isDivisible(n,x,(max/10 + 1),max)){
+                    return (int)(x%1337);
+                }
+            
+        }
+        
+        
+        return 0;
+    }
+    
+    public long createpalindrome(int val){
+        StringBuilder sb = new StringBuilder();
+        String y = val + sb.append(val).reverse().toString();
+        return Long.parseLong(y);
+    }
+    
+    
+    
+        
+    public boolean isDivisible(int nval, long n,int low, int high) 
+    { 
+      
+        for (int i = high; i >= low; i--) {
+        if(String.valueOf(n/i).length() != nval || String.valueOf(i).length() != nval) {
+                break; 
+            }
+            
+       if(n % i == 0){
+           return true;
+        }
+        }
+        return false; 
+    }
+}
