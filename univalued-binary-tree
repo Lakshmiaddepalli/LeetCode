@@ -16,3 +16,13 @@ boolean rval = root.right == null ||(root.val == root.right.val && isUnivalTree(
         return lval&&rval;
     }
 }
+
+
+public boolean isUnivalTree(TreeNode root) {
+        return dfs(root, root.val);
+    }
+    private boolean dfs(TreeNode n, int v) {
+        if (n == null) { return true; }
+        if (n.val != v) { return false; }
+        return dfs(n.left, v) && dfs(n.right, v);
+    } 
