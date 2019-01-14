@@ -1,0 +1,39 @@
+class Solution {
+    
+    int[] dpvals;
+    public int combinationSum4(int[] nums, int target) {
+
+        Arrays.sort(nums);
+        dpvals = new int[target + 1];
+        Arrays.fill(dpvals, -1);
+        dpvals[0] = 1;
+        int val = backtrack(nums,target);
+        return val;
+    }
+    
+    public int backtrack(int[] nums,int remain){
+     
+        int count = 0;
+        
+        if(dpvals[remain] != -1)
+            return dpvals[remain];
+        
+        if(remain < 0)
+            return 0;
+        
+        if(remain == 0){
+            return 1;
+        }
+        
+        
+            for(int i = 0; i < nums.length; i++){
+                if (remain >= nums[i]) {
+                 count += backtrack(nums,remain - nums[i]);
+            }
+            }
+        
+        dpvals[remain] = count;
+        
+        return count;
+    }
+}
