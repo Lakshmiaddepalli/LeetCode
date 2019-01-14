@@ -1,0 +1,30 @@
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        
+        Arrays.sort(candidates);
+        List<List<Integer>> finallist = new ArrayList<List<Integer>>();
+        backtrack(finallist,candidates,new ArrayList<Integer>(),target,0);
+        return finallist;
+    }
+    
+    
+    public void backtrack(List<List<Integer>> ls, int nums[],ArrayList<Integer> temp,int remain,int start){
+     
+        if(remain < 0){
+            return;
+        }else if(remain == 0){
+            ArrayList<Integer> finaltemp = new ArrayList<Integer>(temp);
+            if(!ls.contains(finaltemp)){
+            ls.add(new ArrayList<Integer>(temp));
+            }
+        }else{
+            for(int i = start; i < nums.length; i++){
+            //    while(i > 0 && nums[i] == nums[i-1]){i++;}
+               temp.add(nums[i]);
+               backtrack(ls,nums,temp,remain - nums[i], i+ 1);
+               temp.remove(temp.size() - 1);
+            }
+            
+        }
+    }
+}
