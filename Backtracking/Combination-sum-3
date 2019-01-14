@@ -1,0 +1,32 @@
+class Solution {
+    
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        
+        int[] allnums = {1,2,3,4,5,6,7,8,9};
+        List<List<Integer>>  finallist = new ArrayList<List<Integer>>(); 
+        backtrack(finallist,allnums,new ArrayList<Integer>(),n,0,k);
+        return finallist;
+    }
+    
+public void backtrack(List<List<Integer>> ls,int[] nums,ArrayList<Integer> temp,int remain,int start,int vl){
+        
+        if(remain < 0) return;
+    
+        else if(remain == 0) {
+            ArrayList<Integer> al = new ArrayList<Integer>(temp);
+            if(al.size()== vl &&!ls.contains(al)){
+                ls.add(al);
+            }
+        }
+    
+        else
+        {
+            for(int i = start; i < nums.length;i++){
+                temp.add(nums[i]);
+                backtrack(ls,nums,temp,remain - nums[i],i+1,vl);
+                temp.remove(temp.size() - 1);
+            }
+        }
+    }
+    
+}
