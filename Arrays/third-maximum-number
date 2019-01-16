@@ -1,0 +1,29 @@
+class Solution {
+    public int thirdMax(int[] nums) {
+        
+        ArrayList<Integer> hs = new ArrayList<Integer>();
+        
+        for(int i = 0; i < nums.length;i++){
+            if(!hs.contains(nums[i]))
+               hs.add(nums[i]);
+        }
+        
+        if(hs.size()==0)
+            return 0;
+        
+        if(hs.size()==1)
+            return hs.get(0);
+        
+        if(hs.size()==2)
+            return Math.max(hs.get(0),hs.get(1));
+       
+        Collections.sort(hs);
+        Collections.reverse(hs);
+
+
+        return hs.get(2);
+        
+ 
+    }
+}
+
