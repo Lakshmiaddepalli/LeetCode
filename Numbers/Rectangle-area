@@ -1,0 +1,20 @@
+class Solution {
+    public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        
+        
+     
+    int area1 = Math.abs(C-A) * Math.abs(D-B);
+    int area2 = Math.abs(G-E) * Math.abs(H-F);
+    int area3 = 0;
+    int lowerx,lowery,upperx,uppery;
+     
+        lowerx = Math.max(A,E);  
+        lowery = Math.max(B,F); 
+        upperx = Math.min(C,G);
+        uppery = Math.min(D,H);
+  
+    if(upperx > lowerx && uppery > lowery)
+     area3 = Math.abs(upperx - lowerx ) * Math.abs(uppery - lowery);
+    return area1 + area2 - area3;
+    }
+}
