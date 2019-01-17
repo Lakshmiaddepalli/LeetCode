@@ -1,0 +1,65 @@
+class MaxStack {
+
+    /** initialize your data structure here. */
+    
+    Stack<Integer> s = null;
+    PriorityQueue<Integer> pq = null;
+    
+    public MaxStack() {
+        s = new Stack<Integer>();
+        pq = new PriorityQueue<Integer>(Collections.reverseOrder());
+    }
+    
+    public void push(int x) {
+        s.push(x);
+        pq.add(x);
+    }
+    
+    public int pop() {
+       int val = s.pop();
+        pq.remove(val);
+        return val;
+    }
+    
+    public int top() {
+       return s.peek();
+    }
+    
+    public int peekMax() {
+        return pq.peek();
+    }
+    
+    public int popMax() {
+       int maxval = pq.peek();
+        int valmax = 0;
+        
+        if(s.peek() == maxval){
+          valmax  = s.pop();
+            pq.remove(valmax);
+            
+        }else{
+            Stack<Integer> temp = new Stack<Integer>();
+            while(s.peek() != maxval){
+                temp.push(s.pop());
+            }
+              int valremo = s.pop();
+              pq.remove(valremo);
+            
+            while(!temp.isEmpty()){
+               s.push(temp.pop());
+            }
+            valmax = valremo;
+        }
+        return valmax;
+    }
+}
+
+/**
+ * Your MaxStack object will be instantiated and called as such:
+ * MaxStack obj = new MaxStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.peekMax();
+ * int param_5 = obj.popMax();
+ */
