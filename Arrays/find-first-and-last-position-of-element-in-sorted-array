@@ -1,0 +1,51 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        
+        int val = binarysearch(nums,0,nums.length - 1,target);
+        int[] result = new int[2];
+        result[0] = val;
+        if(val == -1){
+            result[1] = -1;
+        }
+        else{
+            int i = val + 1;
+            int j = val - 1;
+            while(i > val  && i < nums.length && nums[i] == nums[i - 1]){i++;}  
+            while(j < val  && j >= 0 && nums[j] == nums[j + 1]){j--;} 
+
+            if( i != val + 1){
+                result[1] = i - 1;
+            }else{
+                result[1] = val;
+            }
+            if( j != val - 1){
+                result[0] = j + 1;  
+            } else{
+                result[0] = val;
+            }            
+            }
+            
+        return result;
+        }
+     
+    
+    
+    public int binarysearch(int nums[], int low, int high,int target){
+        
+        int mid = (high + low)/2;
+        
+        while(high >= low){
+           if(nums[mid] == target){
+               return mid;
+           } else if(nums[mid] > target){
+               return binarysearch(nums,low, mid - 1,target);
+           }else{
+               
+               return binarysearch(nums,mid + 1, high,target);
+           }
+            
+        }
+        
+        return -1;
+    }
+}
