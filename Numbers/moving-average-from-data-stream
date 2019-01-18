@@ -1,0 +1,42 @@
+class MovingAverage {
+
+    /** Initialize your data structure here. */
+    ArrayList<Integer> al = null;
+    int value = 0;
+    int startingindex = 0;
+    public MovingAverage(int size) {
+        al = new ArrayList<Integer>();
+        value = size;
+    }
+    
+    public double next(int val) {
+       
+        al.add(val);
+        
+        startingindex = startingindex + 1;
+        
+        double sum = 0;
+        
+        if(value > al.size()){
+            for(Integer i : al){
+                sum += (double) i;
+            }
+            return sum/(double)(al.size());
+        }
+        
+        else{
+            for(int i = startingindex - value; i < startingindex; i++){
+                sum += (double) al.get(i);
+            }
+            return sum/(double)(value);
+        }
+        
+
+    }
+}
+
+/**
+ * Your MovingAverage object will be instantiated and called as such:
+ * MovingAverage obj = new MovingAverage(size);
+ * double param_1 = obj.next(val);
+ */
