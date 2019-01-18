@@ -1,0 +1,32 @@
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        
+        if(nums[nums.length - 1] < target)
+            return nums.length;
+        
+        if(nums[0] > target)
+            return 0;
+        
+        int val = binarysearch(nums, 0 ,nums.length - 1,target);
+        return val;
+    }
+    
+   public int binarysearch(int nums[], int low, int high,int target){
+
+        int mid = low + (high - low)/2;
+
+        while(low <= high){
+           if(nums[mid] == target){
+               return mid;
+           } else if(nums[mid] > target){
+               return binarysearch(nums,low, mid - 1,target);
+           }else{
+
+               return binarysearch(nums,mid + 1, high,target);
+           }
+
+        }
+        
+        return low;
+    }
+    }
