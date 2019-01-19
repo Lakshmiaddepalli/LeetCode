@@ -1,0 +1,58 @@
+class MyHashMap {
+
+    /** Initialize your data structure here. */
+    private int numberofbuckets = 1000;
+    private int bucketvalues = 1001;
+    int[][] values = null;
+    
+    
+    public int hashvalue(int key){
+        return key % numberofbuckets;
+    }
+    
+    public int bucketvalue(int key){
+        return key / numberofbuckets;
+    }
+    
+    public MyHashMap() {
+       values = new int[numberofbuckets][]; 
+    }
+    
+    /** value will always be non-negative. */
+    public void put(int key, int value) {
+        
+        if(values[hashvalue(key)] == null){
+            values[hashvalue(key)] = new int[bucketvalues];
+              Arrays.fill(values[hashvalue(key)] , -1);                            
+        }
+            values[hashvalue(key)][bucketvalue(key)] =  value;   
+        }
+                                               
+    
+    
+    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+    public int get(int key) {
+        if(values[hashvalue(key)] != null && values[hashvalue(key)][bucketvalue(key)] != -1){
+            return values[hashvalue(key)][bucketvalue(key)];
+        }
+        
+        return -1;
+    }
+    
+    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
+    public void remove(int key) {
+        if(values[hashvalue(key)] != null &&  values[hashvalue(key)][bucketvalue(key)] != -1){
+            values[hashvalue(key)][bucketvalue(key)] = -1 ;
+        }
+    
+}
+    
+}
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap obj = new MyHashMap();
+ * obj.put(key,value);
+ * int param_2 = obj.get(key);
+ * obj.remove(key);
+ */
