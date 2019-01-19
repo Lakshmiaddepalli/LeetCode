@@ -1,0 +1,55 @@
+class MyHashSet {
+
+    /** Initialize your data structure here. */
+    
+    int bucketvalues = 1001;
+    int numberofbuckets = 1000;
+    boolean[][] values = null;
+    
+    
+    public MyHashSet() {
+        values = new boolean[numberofbuckets][];
+    }
+    
+    public int bucketrow(int key){
+        return key%numberofbuckets;
+    }
+    
+    public int bucketcolumn(int key){
+        return key/numberofbuckets;
+    }
+    
+    public void add(int key) {
+        if(values[bucketrow(key)] == null)
+        {
+           values[bucketrow(key)] = new boolean[bucketvalues]; 
+            Arrays.fill(values[bucketrow(key)], false);
+        }
+        values[bucketrow(key)][bucketcolumn(key)] = true;
+    }
+    
+    public void remove(int key) {
+       if(values[bucketrow(key)] != null && (values[bucketrow(key)][bucketcolumn(key)])){
+           values[bucketrow(key)][bucketcolumn(key)] = false;
+       } 
+    }
+    
+    /** Returns true if this set contains the specified element */
+    public boolean contains(int key) {
+        if(values[bucketrow(key)] == null)
+                return false;
+        
+        if(!values[bucketrow(key)][bucketcolumn(key)])
+            return false;
+        
+        return true;
+    }
+}
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet obj = new MyHashSet();
+ * obj.add(key);
+ * obj.remove(key);
+ * boolean param_3 = obj.contains(key);
+ */
