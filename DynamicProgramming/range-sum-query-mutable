@@ -1,0 +1,41 @@
+class NumArray {
+
+    int numsval[] = null;
+    int numscopy[] = null;
+    
+    public NumArray(int[] nums) {
+        numsval = new int[nums.length + 1];
+        numscopy = Arrays.copyOf(nums, nums.length);
+        
+        for(int i = 0; i < nums.length; i++){
+            numsval[i + 1] = numsval[i] + nums[i];
+        }
+        
+
+    }
+    
+    public void update(int i, int val) {
+                        
+        for(int j = i; j < numscopy.length; j++){
+            numsval[j+1] = numsval[j+1]  - numscopy[i];
+        }
+        
+        numscopy[i] = val;
+
+        for(int j = i; j < numscopy.length; j++){
+            numsval[j+1] = numsval[j+1]  + numscopy[i];
+        }
+        
+    }
+    
+    public int sumRange(int i, int j) {
+        return numsval[j+1] - numsval[i];
+    }
+}
+
+/*
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * obj.update(i,val);
+ * int param_2 = obj.sumRange(i,j);
+ */
