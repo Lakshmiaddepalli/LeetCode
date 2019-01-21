@@ -28,7 +28,8 @@ class NumArray {
         int mid = midval(segmentstart,segmentend);
         
         
-       segmenttree[segmentindex] =  constructsegmenttree(segmentstart,mid,2*segmentindex + 1,nums) +                  constructsegmenttree(mid + 1,segmentend,2*segmentindex + 2,nums); 
+       segmenttree[segmentindex] =  constructsegmenttree(segmentstart,mid,2*segmentindex + 1,nums) + 
+                                    constructsegmenttree(mid + 1,segmentend,2*segmentindex + 2,nums); 
         
         return segmenttree[segmentindex];
         
@@ -68,13 +69,11 @@ class NumArray {
     }
     
     public int sumRange(int i, int j) {
-      //  System.out.println(min);
-     //   System.out.println(max);
+
         if(i < min || j > max || j < i)
             return -1;
         
-         System.out.println(i);
-        System.out.println(j);
+
         return sumRangeUtil(min,max,i,j,0);
     }
     
