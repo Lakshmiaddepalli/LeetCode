@@ -1,0 +1,3 @@
+Select World.name, World.population, World.area
+from World
+Where World.population > 25000000 OR World.area > 3000000;
