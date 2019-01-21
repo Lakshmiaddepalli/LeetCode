@@ -1,0 +1,99 @@
+class NumArray {
+
+    int[] segmenttree = null;
+    int max = 0;
+    int min = 0;
+    int[] numscopy  = null;
+    
+    public NumArray(int[] nums) {
+     if(nums.length == 0)
+         return;
+        
+    int height = (int) Math.ceil(Math.log(nums.length)/Math.log(2));
+    int finalheight = 2 * (int) Math.pow(2,height) - 1;
+    segmenttree = new int[finalheight];
+    max = nums.length - 1;
+    min = 0;
+    numscopy = Arrays.copyOf(nums,nums.length);
+    constructsegmenttree(min,max,0,nums);
+    }
+    
+    public int constructsegmenttree(int segmentstart, int segmentend, int segmentindex, int[] nums){
+        
+        if(segmentstart == segmentend){
+            segmenttree[segmentindex] = nums[segmentstart];
+            return segmenttree[segmentindex];
+        }
+        
+        int mid = midval(segmentstart,segmentend);
+        
+        
+       segmenttree[segmentindex] =  constructsegmenttree(segmentstart,mid,2*segmentindex + 1,nums) +                  constructsegmenttree(mid + 1,segmentend,2*segmentindex + 2,nums); 
+        
+        return segmenttree[segmentindex];
+        
+    }
+    
+    public int midval(int start,int end){     
+        int val = start + (end - start)/2;
+        return val;
+    }
+    
+    public void update(int i, int val) {
+       
+        if(i < min || i > max){
+            System.out.println("Index out of range");
+            return;
+        }
+        
+        int diff = val - numscopy[i];
+        numscopy[i] = val;
+        updateutil(min,max,i,diff,0);
+        
+    }
+    
+    public void updateutil(int segmentstart, int segmentend,int indexofupdate,int diff,int segmentindex){
+        
+        if(indexofupdate < segmentstart || indexofupdate > segmentend){
+            return;
+        }
+        
+        segmenttree[segmentindex] = segmenttree[segmentindex] + diff;
+        
+        if(segmentstart != segmentend){
+            int mid = midval(segmentstart, segmentend);
+            updateutil(segmentstart, mid, indexofupdate, diff, 2*segmentindex + 1);
+            updateutil(mid + 1, segmentend, indexofupdate,diff, 2*segmentindex + 2);
+        }
+    }
+    
+    public int sumRange(int i, int j) {
+      //  System.out.println(min);
+     //   System.out.println(max);
+        if(i < min || j > max || j < i)
+            return -1;
+        
+         System.out.println(i);
+        System.out.println(j);
+        return sumRangeUtil(min,max,i,j,0);
+    }
+    
+    public int sumRangeUtil(int segmentstart,int segmentend,int i, int j,int segmentindex){
+        if(j < segmentstart || i > segmentend)
+            return 0;
+        
+        if(i <= segmentstart && j >= segmentend){
+            return segmenttree[segmentindex];
+        }
+        
+         int mid = midval(segmentstart, segmentend);
+    return sumRangeUtil(segmentstart, mid, i, j, 2*segmentindex + 1) + sumRangeUtil(mid + 1, segmentend, i,j, 2*segmentindex + 2);
+    }
+}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * obj.update(i,val);
+ * int param_2 = obj.sumRange(i,j);
+ */
