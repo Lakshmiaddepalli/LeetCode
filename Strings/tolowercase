@@ -1,0 +1,14 @@
+class Solution {
+    public String toLowerCase(String str) {
+        
+    char[] ch = str.toCharArray();
+        
+        for(int i = 0; i < ch.length; i++){
+            if((int)ch[i] < 97 && Character.isLetter(ch[i])){
+                ch[i] = (char)((int)ch[i] + 32);
+            }
+        }
+
+        return String.valueOf(ch);
+    }
+}
