@@ -1,0 +1,30 @@
+class Solution {
+    public int[] anagramMappings(int[] A, int[] B) {
+      
+        
+        Map<Integer,List<Integer>> hmp = new HashMap<Integer,List<Integer>>();
+        
+        for(int i = 0; i < B.length; i++){
+            if(!hmp.containsKey(B[i])){  
+            List<Integer> al = new ArrayList<Integer>();
+            al.add(i);
+            hmp.put(B[i],al);
+            }
+            else{
+             List<Integer> val = hmp.get(B[i]); 
+             val.add(i);
+            }
+        }
+        
+        
+        int P[] = new int[A.length];
+        
+        for(int i = 0; i < A.length; i++){
+            List<Integer> ls = hmp.get(A[i]);
+            P[i] = ls.get(0);
+            ls.remove(0);
+        }
+        
+        return P;
+    }
+}
