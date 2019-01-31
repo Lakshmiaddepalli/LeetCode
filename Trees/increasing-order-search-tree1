@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    
+
+  TreeNode curr = null;
+    
+    public TreeNode increasingBST(TreeNode root) {
+      TreeNode val = new TreeNode(0);
+      curr = val;
+      traverseinorder(root);
+      return val.right;
+
+        
+    }
+    
+    public void traverseinorder(TreeNode root){
+      
+      if(root == null){
+          return;
+      } 
+      traverseinorder(root.left);
+      curr.left = null;
+      root.left = null;
+      curr.right = root;
+      curr = root;
+      traverseinorder(root.right);  
+        
+    }
+    
+    
+   
+}
