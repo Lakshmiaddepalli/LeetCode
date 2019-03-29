@@ -1,0 +1,43 @@
+class Solution {
+    public boolean validTree(int n, int[][] edges) {
+        
+        List<List<Integer>> adjlist = new ArrayList<>(n);
+        boolean[] visited = new boolean[n];
+        
+        for(int i = 0; i < n;i++){
+            adjlist.add(i,new ArrayList<Integer>());
+        }
+        
+        for(int i = 0; i < edges.length; i++){
+            int u = edges[i][0];
+            int v = edges[i][1];
+            adjlist.get(u).add(v);
+            adjlist.get(v).add(u);
+        }
+        
+        if(hascycle(adjlist,visited,0,-1)){
+            return false;
+        }
+         
+        for(int i = 0; i < n; i++){
+         if(!visited[i]){
+             return false;
+         }   
+        }
+        return true;
+    }
+    
+    public boolean hascycle(List<List<Integer>> adjlist, boolean[] visited, int u,int parent){
+        visited[u] = true;
+        
+        for(int i =0; i <adjlist.get(u).size(); i++){
+            int child = adjlist.get(u).get(i);
+            
+            if((visited[child] && child  != parent) || (!visited[child] && hascycle(adjlist,visited,child,u))){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+}
