@@ -1,0 +1,41 @@
+class MedianFinder {
+
+    PriorityQueue<Integer> low;
+    PriorityQueue<Integer> high;
+    
+    /** initialize your data structure here. */
+    public MedianFinder() {
+        low =  new PriorityQueue<Integer>(Collections.reverseOrder()); 
+        high = new PriorityQueue<Integer>();
+    }
+    
+    public void addNum(int num) {
+        low.add(num);
+        high.add(low.peek());
+        low.poll();
+        
+        if(low.size() < high.size()){
+            low.add(high.peek());
+            high.poll();
+        }
+    }
+    
+    public double findMedian() {
+        double median = 0.0;
+        
+        if(low.size() > high.size()){
+            median = low.peek();
+        }else{
+            median = (low.peek() + high.peek()) * 0.5;
+        }
+        
+        return median;
+    }
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
