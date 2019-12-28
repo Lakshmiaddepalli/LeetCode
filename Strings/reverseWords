@@ -1,0 +1,30 @@
+class Solution {
+    public String reverseWords(String s) {
+         Stack<String> wordStack = new Stack<>();
+        StringBuilder word = new StringBuilder();
+        
+        for (int index = s.length() - 1; index >= 0; index--) {
+            char letter = s.charAt(index);
+            
+            if (letter != ' ')
+                word.append(letter);
+            
+            if (letter == ' ' || index == 0) {
+                wordStack.push(word.toString());
+                word.delete(0,word.length());
+            }
+        }
+        
+        StringBuilder result = new StringBuilder();
+        
+        while (!wordStack.empty()) {
+            result.append(wordStack.pop());
+            
+            if (!wordStack.empty())
+                result.append(" ");
+        }
+        
+        return result.toString(); 
+       // return null;
+    }
+}
