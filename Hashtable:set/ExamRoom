@@ -1,0 +1,48 @@
+class ExamRoom {
+    
+    TreeSet<Integer> sitting;
+    int total;
+
+    public ExamRoom(int N) {
+       total = N;
+       sitting = new TreeSet<Integer>();
+    }
+    
+    public int seat() {
+        if(sitting.size() == 0){
+            sitting.add(0);
+            return 0;
+        }
+        
+        int previous = sitting.first();
+        int gap = sitting.first();
+        int finalseat = 0;
+        
+        for(int item : sitting){
+            if((item - previous)/2 > gap){
+                gap = (item - previous)/2;
+                finalseat = (item + previous)/2;
+            }
+            previous = item;
+        }
+        
+        if(total - 1 - previous > gap){
+            finalseat = total - 1;
+        }
+        sitting.add(finalseat);
+        return  finalseat;
+    }
+    
+    public void leave(int p) {
+        if(sitting.contains(p)){
+            sitting.remove(p);
+        }   
+    }
+}
+
+/**
+ * Your ExamRoom object will be instantiated and called as such:
+ * ExamRoom obj = new ExamRoom(N);
+ * int param_1 = obj.seat();
+ * obj.leave(p);
+ */
