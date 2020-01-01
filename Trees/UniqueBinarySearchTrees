@@ -1,0 +1,37 @@
+class Solution {
+    public int numTrees(int n) {
+        
+        int[] sol = new int[n+1];
+        
+        sol[0] = 1;
+        sol[1] = 1;
+        
+        for(int i = 2; i <= n; i++){
+            for(int j = 1; j <= i; j++){
+                sol[i] += sol[j - 1] * sol[i - j];
+            }
+        }
+        
+        return sol[n];
+    }
+}
+
+-----------------------------------------------------------
+
+Algorithm
+
+The problem is to calculate the number of unique BST. To do so, we can define two functions:
+
+G(n)G(n): the number of unique BST for a sequence of length n.
+
+F(i, n)F(i,n): the number of unique BST, where the number i is served as the root of BST (1 \leq i \leq n1≤i≤n).
+
+G(n)=∑ F(i,n)
+i=1
+n
+
+F(i,n)=G(i−1)⋅G(n−i)
+
+G(n)=∑ G(i−1)⋅G(n−i)
+i=1
+n 
