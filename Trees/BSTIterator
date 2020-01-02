@@ -1,0 +1,61 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class BSTIterator {
+
+    ArrayList<TreeNode> al;
+    
+    public BSTIterator(TreeNode root) {
+        al = new ArrayList<TreeNode>();
+        printInorder(root);
+     //   for(int i = 0; i < al.size(); i++){
+     //       System.out.println(al.get(i).val);
+    //    }
+        
+    }
+    
+    /** @return the next smallest number */
+    public int next() {
+        int val = 0;
+        
+        if(!al.isEmpty()){
+        val = al.get(0).val;
+        al.remove(0);
+        return val;
+        }
+        
+        return -1;
+    }
+    
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        if(al.size() > 0){
+            return true;
+        }
+        return false;
+    }
+    
+    public void printInorder(TreeNode root){
+        
+        if(root == null){
+            return;
+        }
+        
+        printInorder(root.left);
+        al.add(root);
+        printInorder(root.right);
+    }
+}
+
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * BSTIterator obj = new BSTIterator(root);
+ * int param_1 = obj.next();
+ * boolean param_2 = obj.hasNext();
+ */
