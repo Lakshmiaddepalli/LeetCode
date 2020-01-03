@@ -1,0 +1,57 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node parent;
+};
+*/
+class Solution {
+   
+    int count = 0;
+    boolean storeval = false;
+    Node ans = null;
+    
+    public Node inorderSuccessor(Node x) {
+       
+        Node parentval = null;
+        Node refval = x;
+        
+        while(x.parent!=null){
+            x = x.parent;
+        }
+        
+        parentval = x;
+        
+        printInorder(parentval,refval);
+        
+        if(count < 2){
+            return null;
+        }
+        
+        return ans;
+        
+        
+    }
+    
+    public void printInorder(Node root, Node p){
+        
+        if(root == null){
+            return;
+        }
+        
+        printInorder(root.left,p);
+        
+        if(root.val == p.val){
+            storeval = true;
+        }
+        
+        if(count < 2 && storeval){
+            ans = root;
+            count++;
+        }
+        
+        printInorder(root.right,p);
+    }
+}
