@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int result = 0;
+    
+    public int findTilt(TreeNode root) {
+        calculate(root);
+        return result;
+    }
+    
+    public int calculate(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        
+        int left= calculate(root.left);
+        int right = calculate(root.right);
+        
+        result += Math.abs(left - right);
+        
+        return left + right + root.val;
+    }
+}
