@@ -1,0 +1,16 @@
+class Solution {
+    public int findComplement(int num) {
+        
+        int j = 0;
+        int finans  = 0;
+        
+        while(num >= 1){
+            int remainder = (1 - num % 2);
+            finans += Math.pow(2,j)*remainder;
+            j++;
+            num = num/2;
+        }
+        
+        return finans;
+    }
+}
