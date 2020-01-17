@@ -1,0 +1,23 @@
+class Solution {
+    public double myPow(double x, int n) {
+        long N = n;
+        if(N < 0){
+            x = 1/x;
+            N = -N;
+        }
+        
+        return help(x,N);
+    }
+    
+    public double help(double x, long n){
+       if(n == 0){
+           return 1.0;
+       }
+        double val = help(x,n/2);
+       if(n%2 == 0){
+           return val * val; 
+       }else{
+           return val * val * x; 
+       }
+    }
+}
