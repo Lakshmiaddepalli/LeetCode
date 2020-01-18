@@ -1,0 +1,49 @@
+class Solution {
+    public List<Integer> killProcess(List<Integer> pid, List<Integer> ppid, int kill) {
+       
+        TreeMap<Integer,List<Integer>> childparentmap = new                 TreeMap<Integer,List<Integer>>();
+
+        List<Integer> ls = new LinkedList<Integer>();
+        Queue<Integer> q = new LinkedList<Integer>();
+        
+        
+        for(int i = 0; i < ppid.size(); i++){
+            int keyval = ppid.get(i);
+            int val = pid.get(i);
+            if(!childparentmap.containsKey(keyval)){
+                ArrayList<Integer> al = new ArrayList<Integer>();
+                al.add(val);
+                childparentmap.put(keyval,al);
+            }else{
+              List<Integer> al =  childparentmap.get(keyval);
+              al.add(val);
+              childparentmap.put(keyval,al);
+            } 
+       }
+        
+       ls.add(kill);
+       
+       if(childparentmap.containsKey(kill)){
+       List<Integer> vals = childparentmap.get(kill);
+        if(!vals.isEmpty()){
+        for(int i = 0; i < vals.size(); i++){
+            q.add(vals.get(i));
+        }
+        }
+       }
+        
+        while(!q.isEmpty()){
+           int valtoadd = q.poll();
+            ls.add(valtoadd);
+            if(childparentmap.containsKey(valtoadd)){
+                List<Integer> vals1 = childparentmap.get(valtoadd);
+                for(int i = 0; i < vals1.size(); i++){
+                q.add(vals1.get(i));
+                }
+            }
+        }
+        
+        return ls;
+        
+    }
+}
