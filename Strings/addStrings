@@ -1,0 +1,50 @@
+class Solution {
+    public String addStrings(String num1, String num2) {
+        
+        char[] cnum1 = num1.toCharArray();
+        char[] cnum2 = num2.toCharArray();
+        
+        int i1 = cnum1.length;
+        int i2 = cnum2.length;
+        
+        int j = i1 > i2 ? (i1 + 1) : (i2 + 1);
+        
+        char[] csum = new char[j];
+        csum[0]='0';
+        
+        i1--;
+        i2--;
+        j--;
+        
+        char carry = 0;
+        
+        while (i1 >= 0 && i2 >= 0 && j >= 0) {
+            csum[j] = (char) ((cnum1[i1] - '0' + cnum2[i2] - '0' + carry) % 10 + '0');
+            carry = (char) ((cnum1[i1] - '0' + cnum2[i2] - '0' + carry) / 10);
+            i1--;
+            i2--;
+            j--;
+                
+        }
+        
+        while (i1 >= 0) {
+            csum[j] = (char) ((cnum1[i1] - '0' + carry) % 10 + '0');
+            carry = (char) ((cnum1[i1] - '0' + carry) / 10);
+            i1--;
+            j--;
+        }
+        while (i2 >= 0) {
+            csum[j] = (char) ((cnum2[i2] - '0' + carry) % 10 + '0');
+            carry = (char) ((cnum2[i2] - '0' + carry) / 10);
+            i2--;
+            j--;
+        }
+        
+        if(carry==1)
+            csum[0]='1';
+        String s=new String(csum);
+        if(s.startsWith("0"))
+            s=s.substring(1);
+        return s;
+    }
+}
