@@ -1,0 +1,36 @@
+enum Index{
+    GOOD,BAD,UNKNOWN
+}
+class Solution {
+    
+    Index[] memo;
+    public boolean canJump(int[] nums) {
+        memo = new Index[nums.length];
+        for (int i = 0; i < memo.length; i++) {
+            memo[i] = Index.UNKNOWN;
+        }
+        memo[nums.length - 1] = Index.GOOD;
+        return jumper(0,nums);
+    }
+    
+    public boolean jumper(int position,int[] nums){
+        if(memo[position] != Index.UNKNOWN){
+            if(memo[position]== Index.GOOD)
+                return true;
+            else
+                return false;
+        }
+        
+        int maxjump = Math.min(position + nums[position],nums.length - 1);
+        
+        for(int i = position+1; i <= maxjump; i++){
+            if(jumper(i,nums)){
+                memo[position] = Index.GOOD;
+                return true;
+            }
+        }
+        
+        memo[position] = Index.BAD;
+        return false;
+    }
+}
